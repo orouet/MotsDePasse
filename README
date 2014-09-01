@@ -1,8 +1,8 @@
-BOO, Bibliothèque Orientée Objet
+MotsDePasse (MDP)
 
-BOO est la bibliothèque qui permet au framework Gibolin de fonctionner.
+MDP est une bibliothèque qui permet de générer des mots de passe.
 
-Les auteurs principaux de BOO sont :
+Les auteurs principaux de MDP sont :
 - Olivier ROUET
 
 ==========================================================================
@@ -28,5 +28,3 @@ Technologies utilisées
 =============================================================================
 
 - PHP 5.4 minimum
-- SGBD : PostgreSQL, MySQL, Microsoft SQL Server, Oracle
-- Icônes : Tango Icon Library (http://tango.freedesktop.org/Tango_Icon_Library)
