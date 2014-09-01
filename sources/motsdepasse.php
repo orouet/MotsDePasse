@@ -37,7 +37,76 @@ termes.
 
 */
 
-//
+
+// Constantes
+define('MDP_DEBUG', true);
+
+
+// fonction de debugging
+function mdp_debug($variable, $message = false)
+{
+
+	// Initialisation des variables
+	$sortie = false;
+	
+	// Traitement
+	if (MDP_DEBUG === true) {
+	
+		if ($message !== false) {
+		
+			echo $message . print_r($variable, true);
+		
+		} else {
+		
+			echo print_r($variable, true);
+		
+		}
+		
+		$sortie = true;
+	
+	}
+	
+	// Sortie
+	return $sortie;
+
+}
+
+
+// fonction de mesure de temps
+function mdp_temps()
+{
+
+	// initialisation des variables
+	$sortie = false;
+	
+	// traitement
+	list($usecondes, $secondes) = explode(' ', microtime());
+	$sortie = (( float ) $usecondes + ( float ) $secondes);
+	
+	// sortie
+	return $sortie;
+
+}
+
+
+// fonction de génération aléatoire d'un entier entre min et max
+function mdp_random($min, $max)
+{
+
+	// initialisation des variables
+	$sortie = false;
+	
+	// traitement
+	$min = (integer) $min;
+	$max = (integer) $max;
+	$sortie = (integer) mt_rand($min, $max);
+	
+	// sortie
+	return $sortie;
+
+}
+
+// fonction qui tire un caractère dans une chaine (dictionnaire)
 function mdp_chaine_tirage($dictionnaire)
 {
 
@@ -51,11 +120,11 @@ function mdp_chaine_tirage($dictionnaire)
 	if ($taille > 0) {
 	
 		$caractere = '';
-		$position = mt_rand(0, ($taille - 1));
-		debug('Hazard = ' . $position . "\n");
+		$position = mdp_random(0, ($taille - 1));
+		mdp_debug('Hazard = ' . $position . "\n");
 		
 		$caractere = $dictionnaire[$position];
-		debug('Caractère = ' . $caractere . "\n");
+		mdp_debug('Caractère = ' . $caractere . "\n");
 		
 		$sortie = (string) $caractere;
 	
@@ -67,7 +136,7 @@ function mdp_chaine_tirage($dictionnaire)
 }
 
 
-//
+// fonction qui mélange une chaine
 function mdp_chaine_melanger($chaine)
 {
 
@@ -77,27 +146,27 @@ function mdp_chaine_melanger($chaine)
 	
 	// mesure de la taille de la chaine à mélanger
 	$taille = strlen($chaine);
-	debug('Entrée : ' . $chaine . "\n");
+	mdp_debug('Entrée : ' . $chaine . "\n");
 	
 	//
 	$i = 1;
 	
 	while (strlen($melange) < $taille ) {
 	
-		debug('Tirage N°' . $i . ' : ');
+		mdp_debug('Tirage N°' . $i . ' : ');
 		$t = strlen($chaine);
 		
 		if ($t > 0) {
 		
-			debug('Chaine = ' . $chaine . ' ; ');
+			mdp_debug('Chaine = ' . $chaine . ' ; ');
 			
 			// position random
-			$position = mt_rand(0, ($t - 1));
-			debug('Hazard = ' . $position . ' ; ');
+			$position = mdp_random(0, ($t - 1));
+			mdp_debug('Hazard = ' . $position . ' ; ');
 			
 			//
 			$melange .= $chaine[$position];
-			debug('Mélange = ' . $melange . ' ; ');
+			mdp_debug('Mélange = ' . $melange . ' ; ');
 			
 			//
 			if ($position > 0) {
@@ -110,7 +179,7 @@ function mdp_chaine_melanger($chaine)
 			
 			}
 			
-			debug('Morceau A = ' . $a . ' ; ');
+			mdp_debug('Morceau A = ' . $a . ' ; ');
 			
 			//
 			if ($position < $t) {
@@ -124,7 +193,7 @@ function mdp_chaine_melanger($chaine)
 			}
 			
 			//
-			debug('Morceau B = ' . $b . "\n");
+			mdp_debug('Morceau B = ' . $b . "\n");
 			
 			//
 			$chaine = $a . $b;
@@ -135,7 +204,7 @@ function mdp_chaine_melanger($chaine)
 	
 	}
 	
-	debug('Sortie : ' . $melange . "\n");
+	mdp_debug('Sortie : ' . $melange . "\n");
 	$sortie = (string) $melange;
 	
 	// sortie
@@ -176,7 +245,7 @@ function mdp_generer($longueur, $majuscules_min, $minuscules_min, $chiffres_min,
 	if ($minimum <= $longueur) {
 	
 		// majuscules
-		debug('Tirage de  ' . $majuscules_min . ' majuscules' . "\n");
+		mdp_debug('Tirage de  ' . $majuscules_min . ' majuscules' . "\n");
 		
 		for ($i = 0; $i < $majuscules_min; $i ++) {
 		
@@ -189,13 +258,13 @@ function mdp_generer($longueur, $majuscules_min, $minuscules_min, $chiffres_min,
 			
 			// On ajoute le tirage à la chaine
 			$chaine .= $tirage;
-			debug('Tirage N°' . $i . ' : ' . $tirage . "\n");
+			mdp_debug('Tirage N°' . $i . ' : ' . $tirage . "\n");
 		
 		}
 		
 		
 		// minuscules
-		debug('Tirage de  ' . $minuscules_min . ' minuscules' . "\n");
+		mdp_debug('Tirage de  ' . $minuscules_min . ' minuscules' . "\n");
 		
 		for ($i = 0; $i < $minuscules_min; $i ++) {
 		
@@ -208,13 +277,13 @@ function mdp_generer($longueur, $majuscules_min, $minuscules_min, $chiffres_min,
 			
 			// On ajoute le tirage à la chaine
 			$chaine .= $tirage;
-			debug('Tirage N°' . $i . ' : ' . $tirage . "\n");
+			mdp_debug('Tirage N°' . $i . ' : ' . $tirage . "\n");
 		
 		}
 		
 		
 		// chiffres
-		debug('Tirage de  ' . $chiffres_min . ' chiffres' . "\n");
+		mdp_debug('Tirage de  ' . $chiffres_min . ' chiffres' . "\n");
 		
 		for ($i = 0; $i < $chiffres_min; $i ++) {
 		
@@ -227,13 +296,13 @@ function mdp_generer($longueur, $majuscules_min, $minuscules_min, $chiffres_min,
 			
 			// On ajoute le tirage à la chaine
 			$chaine .= $tirage;
-			debug('Tirage N°' . $i . ' : ' . $tirage . "\n");
+			mdp_debug('Tirage N°' . $i . ' : ' . $tirage . "\n");
 		
 		}
 		
 		
 		// caractères spéciaux
-		debug('Tirage de  ' . $speciaux_min . ' spéciaux' . "\n");
+		mdp_debug('Tirage de  ' . $speciaux_min . ' spéciaux' . "\n");
 		
 		for ($i = 0; $i < $speciaux_min; $i ++) {
 		
@@ -246,12 +315,12 @@ function mdp_generer($longueur, $majuscules_min, $minuscules_min, $chiffres_min,
 			
 			// On ajoute le tirage à la chaine
 			$chaine .= $tirage;
-			debug('Tirage N°' . $i . ' : ' . $tirage . "\n");
+			mdp_debug('Tirage N°' . $i . ' : ' . $tirage . "\n");
 		
 		}
 		
 		// complément tiré dans les dictionnaires
-		debug('Tirage de  ' . $complement . ' caractères divers' . "\n");
+		mdp_debug('Tirage de  ' . $complement . ' caractères divers' . "\n");
 		
 		for ($i = 0; $i < $complement; $i ++) {
 		
@@ -264,19 +333,19 @@ function mdp_generer($longueur, $majuscules_min, $minuscules_min, $chiffres_min,
 			
 			// On ajoute le tirage à la chaine
 			$chaine .= $tirage;
-			debug('Tirage N°' . $i . ' : ' . $tirage . "\n");
+			mdp_debug('Tirage N°' . $i . ' : ' . $tirage . "\n");
 			
 		}
 		
 		
 		// mélange
 		$melange = $chaine;
-		debug('Mélange de  ' . $melange . ' en ' . $passes . ' passes' . "\n");
+		mdp_debug('Mélange de  ' . $melange . ' en ' . $passes . ' passes' . "\n");
 		
 		// On mélange X fois la chaine produite
 		for ($m = 0; $m < $passes; $m ++) {
 		
-			debug('Passe N°' . $m . "\n");
+			mdp_debug('Passe N°' . $m . "\n");
 			$melange = mdp_chaine_melanger($melange);
 		
 		}
