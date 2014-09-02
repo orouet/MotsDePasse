@@ -39,7 +39,7 @@ termes.
 
 
 // Constantes
-define('MDP_DEBUG', true);
+define('MDP_DEBUG', false);
 
 
 // fonction de debugging
